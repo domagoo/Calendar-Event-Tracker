@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- 180×180 -->
+  <meta name="theme-color" content="#c1f4f5">
+  <title>Southern Charm Events Calendar</title>
+  <!-- FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="container">
+    <div id="calContainer">
+      <div id="header">
+        <img id="sceLogo" src="images/sceLogo.webp" height="75" alt="Southern Charm Events logo">
+        <div id="headerNav">
+          <button id="backButton" class="printHide">&lt;</button>
+          <h2 id="monthDisplay">Loading...</h2>
+          <button id="nextButton" class="printHide">&gt;</button>
+        </div>
+      </div>
+
+      <div id="controls" class="printRemove">
+        <!-- Control panel: contains buttons for view options -->
+        <button id="weeklyButton" class="control">Weekly</button>
+        <button id="monthlyButton" class="control">Monthly</button>
+        <button id="yearlyButton" class="control">Yearly</button>
+        <div class="controlPadding"></div>
+        <button id="showEventsButton" class="control monthlyViewTypeButton">Events</button>
+        <button id="showDueDatesButton" class="control monthlyViewTypeButton">Due Dates</button>
+        <div class="controlPadding"></div>
+        <button id="todayButton" class="control">Today</button>
+        <button onclick="toggleMenu()" class="control menuButton">More...</button>
+
+        <!-- Dropdown menu appears after clicking menu button -->
+        <div class="dropdownMenu">
+          <div id="controlMenu" class="dropdownMenuContent">
+            <a id="printCalendarButton" onclick="printContainer('calContainer')">Print</a>
+            <a id="logoutButton">Log Out</a>
+            <a onclick="backup(1)">Backup</a>
+            <a href="restore.html">Restore...</a>
+            <a href="help.html">Help...</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="weekdays">
+        <div class="weekdayLabel">Sunday</div>
+        <div class="weekdayLabel">Monday</div>
+        <div class="weekdayLabel">Tuesday</div>
+        <div class="weekdayLabel">Wednesday</div>
+        <div class="weekdayLabel">Thursday</div>
+        <div class="weekdayLabel">Friday</div>
+        <div class="weekdayLabel">Saturday</div>
+      </div>
+
+      <div id="calendar"><noscript>Please enable JavaScript to use Southern Charm Events Calendar.</noscript></div>
+    </div>
+
+    <!--Add Event-->
+    <div class="sidebar" id="newEventModal">
+      <h2 class="sidebarHeader">Add Event</h2>
+      <p><label for="eventTitleInput">Event Name:
+          <input id="eventTitleInput" placeholder="Event Name" required /></label></p>
+      <p><label for="eventDateInput">Date:
+          <input type="date" id="eventDateInput" name="eventDateInput"></label></p>
+      <p><label for="eventStartTimeInput">Start Time:
+          <input type="time" id="eventStartTimeInput" name="eventStartTimeInput"></label></p>
+      <p><label for="eventEndTimeInput">End Time:
+          <input type="time" id="eventEndTimeInput" name="eventEndTimeInput"></label></p>
+      <p><label for="eventTypeInput">Type:
+          <input id="eventTypeInput" placeholder="Event Type" /></label></p>
+      <p><label for="eventClientInput">Client:
+          <input id="eventClientInput" placeholder="Client Name" /></label></p>
+      <p><label for="eventBalanceDueInput">Total Charge:
+          <input type="number" id="eventBalanceDueInput" placeholder="Total Charge" step="0.01" min="0" /></label></p>
+      <div id="eventVendorDiv"></div>
+
+      <div class="sidebarButtons printRemove">
+        <button id="cancelButton" class="redButton">Cancel</button>
+        <button class="addVendorButton blueButton" onclick="addVendor()">Add Vendor</button>
+        <button id="saveButton" class="blueButton">Save</button>
+      </div>
+    </div>
+    <!----------------------------------->
+
+    <!-- Event Details -->
+    <div class="sidebar" id="viewEventModal">
+      <h2 class="sidebarHeader">Event Details</h2>
+
+      <p><label for="viewEventTitleInput">Event Name:
+          <input id="viewEventTitleInput" placeholder="Event Name" /></label></p>
+      <p><label for="viewEventDateInput">Date:
+          <input type="date" id="viewEventDateInput" name="eventDateInput" /></label></p>
+      <p><label for="viewEventStartTimeInput">Start Time:
+          <input type="time" id="viewEventStartTimeInput" name="viewEventStartTimeInput"></label></p>
+      <p><label for="viewEventEndTimeInput">End Time:
+          <input type="time" id="viewEventEndTimeInput" name="viewEventEndTimeInput"></label></p>
+      <p><label for="viewEventTypeInput">Type:
+          <input id="viewEventTypeInput" placeholder="Event Type" /></label></p>
+      <p><label for="viewEventClientInput">Client:
+          <input id="viewEventClientInput" placeholder="Client Name" /></label></p>
+      <p><label for="viewBalancePaid">Amount Paid:
+          <input type="number" id="viewBalancePaid" placeholder="Amount Paid" step="0.01" min="0" /></label></p>
+      <p><label for="viewBalanceDue">Total Charge:
+          <input type="number" id="viewBalanceDue" placeholder="Total Charge" step="0.01" min="0" /></label></p>
+      <h3>Vendors</h3>
+          <div id="viewVendorDiv"></div>
+      <div id="viewEventVendorDiv"></div>
+      <button class="addVendorButton blueButton" onclick="addVendorEdit()">Add Vendor</button>
+      
+      <div id="checkboxes"></div>
+
+      <div class="sidebarButtons printRemove">
+        
+        <button id="closeButton" class="blueButton">Close</button>
+        <button id="printEventButton" class="blueButton" onclick="printContainer('viewEventModal')">Print</button>
+        <button id="editButton" class="blueButton">Edit</button>
+        <button id="deleteButton" class="redButton">Delete</button>
+      </div>
+    </div>
+    <!----------------------------------->
+
+    <div class="sidebar" id="notifModal">
+      <h2 class="sidebarHeader">Notifications</h2>
+      <div id="notifModalNotifs"></div>
+    </div>
+  </div>
+
+  <!-- <script src="./calendar.js"></script> -->
+  <script src="./script.js"></script>
+
+  <script type="text/javascript">
+    // Only prints the contents of a container (e.g. a div), not the whole page
+    function printContainer(containerName) {
+      // Use abbreviated weekday labels
+      const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const weekdayLabels = document.getElementsByClassName("weekdayLabel");
+      for (let i = 0; i < 7; ++i)
+        weekdayLabels[i].innerHTML = weekdays[i];
+
+      // Get HTML of container to print
+      let printContents = document.getElementById(containerName).innerHTML;
+      // Open a new window
+      w = window.open();
+      // Add container as first element, then put HTML in it
+      w.document.write("<div id=\"" + containerName + "\"></div>");
+      w.document.getElementById(containerName).innerHTML += (printContents);
+
+      // If printing event, fill in input fields
+      if (containerName == "viewEventModal") {
+        for (e of w.document.getElementsByTagName("input")) {
+          if (document.getElementById(e.id) !== null)
+            e.value = document.getElementById(e.id).value;
+        }
+      }
+
+      // Add stylesheet (it gets lost otherwise)
+      var element = w.document.createElement("link");
+      element.setAttribute("rel", "stylesheet");
+      element.setAttribute("href", "style.css");
+      w.document.getElementsByTagName("head")[0].appendChild(element);
+
+      // Close document when done (otherwise, the new page never stops loading)
+      w.document.close();
+
+      // Print page after slight delay (allows CSS to load)
+      w.setTimeout(function () {
+        w.focus();
+        w.print();
+        w.close();
+      }, 500);
+
+      // Reset weekday labels
+      window.onresize();
+    }
+  </script>
+</body>
+
+</html>
