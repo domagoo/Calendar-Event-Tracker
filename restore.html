@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- 180×180 -->
+  <meta name="theme-color" content="#c1f4f5">
+  <title>Restore Backup | Southern Charm Events Calendar</title>
+  <!-- FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =====================
+      LOGIN SCREEN
+    =======================-->
+  <div class="loginContainer">
+    <div class="loginScreen">
+      <div class="loginBox">
+        <img id="sceLogoLogin" src="images/sceLogo.webp" height="75" alt="Southern Charm Events logo">
+        <h2 class="loginTitle">Restore Backup</h2>
+        <noscript>Please enable JavaScript to use Southern Charm Events Calendar.</noscript>
+        <p>Choose a backup to restore:</p>
+        <table id="backupTable"></table>
+        <br>
+        <div class="centeredButtons">
+          <a href="calendar.html"><button id="restoreBackButton" class="backButton blueButton">Back to Calendar</button></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script src="restore.js"></script>
+</body>
+
+</html>
