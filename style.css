@@ -1,0 +1,725 @@
+:root {
+  /* Presses are 10% darker */
+  /* Dark mode is 25% darker */
+  --sce-blue: #c1f4f5;
+  --event-blue: #58bae4;
+  --event-blue-press: #4fa7cd;
+  --event-blue-dark: #428cab;
+  --due-date-red: #e45858;
+  --due-date-red-press: #cd4f4f;
+  --due-date-red-dark: #ab4242;
+  --dark: #303030;
+  --light-hover: #e8f4fa;
+  --light-press: #d1dce1;
+  --dark-hover: #404040;
+  --dark-press: #505050;
+  --button-red: #d36c6c;
+  --button-red-press: #bc6161;
+  --button-red-dark: #9e5151;
+  --button-blue: #92a1d1;
+  --button-blue-press: #8391bc;
+  --button-blue-dark: #6d799d;
+}
+
+/* Animations */
+@keyframes appear {
+  from {opacity: 0%;}
+  to {opacity: 100%;}
+}
+@keyframes appearUp {
+  from {opacity: 0%; transform: translate(0px, 50px);}
+  to {opacity: 100%;}
+}
+@keyframes appearDown {
+  from {opacity: 0%; transform: translate(0px, -50px);}
+  to {opacity: 100%;}
+}
+@keyframes appearLeft {
+  from {opacity: 50%; transform: translate(100px);}
+  to {opacity: 100%;}
+}
+@keyframes appearRight {
+  from {opacity: 50%; transform: translate(-100px);}
+  to {opacity: 100%;}
+}
+@keyframes unblur {
+  from {-webkit-filter: blur(1px); filter: blur(1px);}
+  to {-webkit-filter: blur(0px); filter: blur(0px);}
+}
+@keyframes expand {
+  from {opacity: 0%; transform: translate(0px, -50px);}
+  to {opacity: 100%;}
+}
+
+/* Scrollbars */
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray) white;
+}
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: lightgray;
+  border-radius: 5px;
+  border: 2px solid white;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #C0C0C0;
+}
+*::-webkit-scrollbar-thumb:active {
+  background: #B0B0B0;
+}
+
+/* CSS is grouped by device width (mobile first) */
+/* Very small phones: shows dots instead of full names for events and due dates on monthly view */
+@media print, only screen {
+  body {
+    display: flex;
+    justify-content: center;
+    background-color: var(--sce-blue);
+    font-family: sans-serif;
+  }
+  button {
+    font-size: 0.72em;
+    width: 75px;
+    height: 32px;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px gray;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: white;
+    transition: 0.1s;
+  }
+  button:hover {
+    box-shadow: 0px 0px 5px black;
+  }
+  #sceLogo, #monthDisplay, #headerNav button, .control, .day {
+    animation: appearDown 0.5s;
+  }
+  #weekdays div, .weekdayLabel, .monthlyViewTypeButton {
+    visibility: hidden;
+    animation: none;
+    transition: none;
+  }
+  #sceLogo, #sceLogoLogin {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 5px;
+  }
+  .manualImageDesktop {
+    background-color: var(--sce-blue);
+    height: min(400px, 48.5vw - 48px, 80vh);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .manualImageDesktop:not(.asyncImage) {
+    animation: unblur 0.2s;
+  }
+  .asyncImage {
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
+  }
+  #monthDisplay {
+    z-index: -1;
+    text-align: center;
+    font-size: clamp(0em, 3.5vw - 0.1em, 1.2em);
+    margin: auto;
+  }
+  #header {
+    position: relative;
+  }
+  #headerNav button, .control {
+    background-color:white;
+    color: black;
+  }
+  #headerNav {
+    width: calc(85vw - 20px);
+    max-width: 400px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    color: black;
+  }
+  .control {
+    min-width: auto;
+  }
+  .selectedView, .selectedViewTypeEvents, .selectedViewTypeDueDates, .selectedToday, .selectedView:hover, .selectedViewTypeEvents:hover, .selectedViewTypeDueDates:hover, .selectedToday:hover {
+    color: white;
+  }
+  #headerNav button:hover, .control:hover, .dropdownMenu a:hover, .backupRow:hover {
+    background-color: var(--light-hover);
+  }
+  #headerNav button:active, .control:active, .dropdownMenu a:active, .backupRow:active {
+    background-color: var(--light-press);
+  }
+  .blueButton, .selectedView, .selectedToday, .selectedView:hover, .selectedToday:hover {
+    background-color: var(--button-blue);
+  }
+  .blueButton:active, .selectedView:active, .selectedToday:active {
+    background-color: var(--button-blue-press);
+  }
+  .redButton {
+    background-color: var(--button-red);
+  }
+  .redButton:active {
+    background-color:  var(--button-red-press);
+  }
+  .sidebarButtons button {
+    width: min(23%, 75px);
+  }
+  #backButton, #nextButton {
+    font-size: 18px;
+  }
+  #resetPasswordButton, .backButton, .addVendorButton, .deleteVendorButton {
+    min-width: max-content;
+  }
+  #signUpButton {
+    display: none;
+  }
+  #calContainer, #calendar, #weekdays, #controls {
+    max-width: 770px;
+  }
+  #calendar, #weekdays, #controls {
+    width: 90vw;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #weekdays div {
+    padding: 5px;
+  }
+  #weekdays {
+    visibility: hidden;
+  }
+  .weekdayLabel, .control {
+    text-align: center;
+    overflow: hidden;
+  }
+  .weekdayLabel {
+    background-color: lightgray;
+  }
+  .day {
+    position: relative;
+    aspect-ratio: 1;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: 0.05s;
+  }
+  .day:active {
+    transform: scale(0.9);
+  }
+  .weeklyEvent {
+    aspect-ratio: 1;
+  }
+  .weeklyDueDate {
+    aspect-ratio: 0.25;
+  }
+  .day, #weekdays div {
+    width: 13.18%;
+  }
+  .control {
+    width: 12.025%;
+  }
+  .controlPadding {
+    width: 3%;
+  }
+  .month {
+    width: 23.8%;
+  }
+  .day, .weekdayLabel, .control, .controlPadding {
+    box-sizing: border-box;
+    margin: 0.5%;
+    padding: 0.7%;
+    border-radius: 3px;
+  }
+  .day:not(.padding), .weekdayLabel {
+    box-shadow: 0px 0px 3px lightgray;
+  }
+  .day:not(.padding) {
+    cursor: pointer;
+  }
+  .day:hover:not(.padding), .day + #currentDay:hover {
+    background-color: var(--light-hover);
+    box-shadow: 0px 0px 5px black;
+  }
+  .day + #currentDay {
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 0px 0px 10px var(--button-blue-press);
+  }
+  .padding, .padding:hover {
+    background-color: inherit;
+  }
+  .event, .dueDate {
+    position: relative;
+    font-size: 10px;
+    padding: 3px;
+    color: rgb(255, 255, 255);
+    overflow: hidden;
+    hyphens: auto;
+    line-height: initial;
+    border-radius: 5px;
+    max-height: calc(100% - 3em);
+  }
+  .duedate li {
+    transition: 0.1s;
+    font-size: 7.5px;
+    margin-left: -10px;
+    text-indent: -4px;
+  }
+  .monthly {
+    /* Most of the text would be cut off at this size on the monthly view, so show a dot in the top right corner instead */
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    text-indent: -9999px;    /* Move text offscreen */
+    border-radius: 9999px;
+    width: 1.5vw;
+    height: 1.5vw;
+  }
+  .event, .selectedViewTypeEvents, .selectedViewTypeEvents:hover {
+    background-color: var(--event-blue);
+  }
+  .selectedViewTypeEvents:active {
+    background-color: var(--event-blue-press);
+  }
+  .dueDate, .selectedViewTypeDueDates, .selectedViewTypeDueDates:hover {
+    background-color: var(--due-date-red);
+  }
+  .selectedViewTypeDueDates:active, .notification:active {
+    background-color: var(--due-date-red-press);
+  }
+  .notification {
+    margin: 10px 0px;
+    padding: 14px 3px;
+    cursor: pointer;
+    transition: 0.05s;
+  }
+  .notification:hover {
+    box-shadow: 0px 0px 5px black;
+  }
+  /* Apply fadeout to clipped text */
+  @media only screen {
+    .event::after, .dueDate::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 12%;
+    }
+    .event::after {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--event-blue));
+    }
+    .dueDate::after {
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--due-date-red));
+    }
+  }
+  .sidebar, .loginScreen, .userManual, .dropdownMenuContent {
+    background-color: white;
+    box-shadow: 0px 0px 3px lightgray;
+    border-radius: 5px;
+    overflow: auto;
+  }
+  .sidebar {
+    width: calc(89vw - 48px);
+    margin-top: 10px;
+    padding: 0px 25px 100px 25px;
+    line-height: 2.25em;
+    z-index: 1;
+  }
+  .loginScreen {
+    width: min(300px, 85vw - 50px);
+    padding: 25px;
+    text-align: center;
+    line-height: 2em;
+  }
+  .centeredButtons {
+    text-align: center;
+  }
+  .userManual {
+    width: min(800px, 85vw - 50px);
+    padding: 25px;
+    text-align: left;
+    line-height: 2em;
+  }
+  input:not([type = checkbox]), .sidebar select {
+    width: 100%;
+    height: 2.5em;
+    float: right;
+    padding-left: 5px;
+    margin-top: 0.25em;
+    box-sizing: border-box;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    box-shadow: 0px 0px 3px gray;
+  }
+  .loginScreen input:not([type = checkbox]) {
+    width: calc(100% - 10px);
+    margin: 0px 5px 20px 5px;
+  }
+  .labelChecked {
+    text-decoration: line-through;
+  }
+  .openOnClickDiv {
+    animation: expand 0.2s;
+  }
+  .vendorNameTitle {
+    cursor: pointer;
+    transition: 0.05s;
+  }
+  /* Dropdown arrow */
+  .vendorNameTitle::after {
+    position: absolute;
+    right: 30px;
+    content: "\25b6";
+    content: "\276F";
+    transform: rotate(90deg);
+    transition: 0.2s;
+  }
+  .dropdownActive::after {
+    transform: rotate(270deg);
+    right: 32px;
+  }
+  .sidebarHeader {
+    text-align: center;
+  }
+  #newEventModal, #viewEventModal {
+    display: none;
+    position: relative;
+    animation: appear 0.2s;
+  }
+  #notifModal {
+    animation: appear 0.2s;
+  }
+  .sidebarButtons {
+    position: relative;
+    top: 25px;
+    text-align: center;
+    background-color: inherit;
+  }
+  input.error {
+    border: 2px solid var(--due-date-red);
+  }
+  .dropdownMenu {
+    position: relative;
+  }
+  .dropdownMenuContent {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 3px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+    animation: appear 0.15s;
+  }
+  .dropdownMenuContent a, .backupHeader, .backupRow {
+    display: block;
+    padding: 10px 16px;
+  }
+  .dropdownMenuContent a, .backupRow {
+    cursor: pointer;
+    min-width: max-content;
+  }
+  .dropdownMenuContent a, .manualA {
+    color: black;
+  }
+  .dropdownMenuContent a {
+    font-size: 0.72em;
+    text-decoration: none;
+  }
+  .manualA:hover, .vendorNameTitle:hover {
+    background-color: var(--light-hover);
+  }
+  .manualA:active, .vendorNameTitle:active {
+    background-color: var(--light-press);
+  }
+  th, td {
+    padding: 0px 25px;
+  }
+  #backupTable {
+    margin: auto;
+  }
+  .show {
+    display: block;
+  }
+}
+
+/* Small phones: places labels next to inputs in sidebar */
+@media print, only screen and (min-width: 300px) {
+  input:not([type = checkbox]), .sidebar select {
+    width: calc(100% - 8em);
+  }
+}
+
+/* Large phones and portrait tablets: shows full event names and due dates on monthly view */
+@media print, only screen and (min-width: 600px) {
+  .monthly {
+    position: relative;
+    top: auto;
+    right: auto;
+    text-indent: 0px;
+    border-radius: 5px;
+    height: auto;
+    width: auto;
+  }
+  .dueDate li {
+    font-size: 10px;
+  }
+  .manualLi {
+    list-style: none;
+  }
+  .manualOl {
+    list-style-type: none;
+    counter-reset: item;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .manualOl > .manualLi {
+    display: table;
+    counter-increment: item;
+    margin-bottom: 0.6em;
+  }
+  
+  .manualOl > li:before {
+    content: counters(item, ".") ". ";
+    display: table-cell;
+    padding-right: 0.6em;    
+  }
+  
+  .manualLi .manualOl > .manualLi {
+    margin: 0;
+  }
+  
+  .manualLi .manualOl > li:before {
+    content: counters(item, ".") " ";
+  }
+}
+
+/* Landscape tablets: shows thin sidebar next to calendar */
+/* Don't include print anymore so the sidebar is displayed beneath the calendar when the page is printed */
+@media only screen and (min-width: 768px) {
+  body {
+    margin-top: 50px;
+  }
+  #sceLogo {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+  }
+  #header {
+    width: 68.25vw;
+    max-width: 752px;
+  }
+  #headerNav {
+    /* Scale header so it's aligned whether the calendar shrinks because of height or width */
+    /* Minimum 95px padding for SC logo */
+    margin-left: max(95px, 23%);
+  }
+  #container {
+    display: contents;
+  }
+  #calContainer, #calendar, #weekdays, #controls {
+    width: min(70vw, 111vh - 190px);
+  }
+  #calendar, #weekdays, #controls {
+    min-width: 250px;
+  }
+  .sidebar {
+    margin-top: 55px;
+    max-width: 300px;
+    height: 600px;
+    min-height: 200px;
+    max-height: min(600px, 100vh - 213px);
+  }
+  .sidebarButtons {
+    z-index: 10;
+    padding-top: 10px;
+    position: fixed;
+    /* Position at bottom of sidebar */
+    top: max(min(745px, 100vh - 68px), 104px);
+    left: inherit;
+    width: max(100% - 70vw - 60px, 100% - 111vh + 120px);
+    max-width: 300px;
+    height: 50px;
+  }
+  /* If sidebar is too thin, make inputs larger */
+  @media only screen and (min-height: 625px) {
+    input:not([type = checkbox]), .sidebar select {
+      width: calc(100% - 5px);
+    }
+  }
+  /* Fix sidebar overlapping calendar on very short, wide displays */
+  @media only screen and (max-height: 400px) {
+    #calContainer {
+      min-width: 250px;
+    }
+  }
+}
+
+/* Laptops and desktops: places labels next to inputs in sidebar */
+@media only screen and (min-width: 1000px) {
+  input:not([type = checkbox]), .sidebar select {
+    width: calc(100% - 8em);
+  }
+}
+
+  /* Use dots for events and due dates on monthly view when height is limited */
+  @media only screen and (min-width: 768px) and (max-height: 550px) {
+    .monthly {
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+      text-indent: -9999px;    /* Move text offscreen */
+      border-radius: 9999px;
+      height: 1.5vh;
+      width: 1.5vh;
+    }
+}
+
+/* Dark mode (respects browser theme) */
+@media only screen and (prefers-color-scheme: dark) {
+  #sceLogo {
+    -webkit-filter: invert(0.1875);
+    filter: invert(0.1875);
+  }
+  button, #headerNav button, .control, .day:not(.padding), .weekdayLabel, .sidebar, .loginScreen, .userManual, .dropdownMenuContent a, .manualA, .backupRow {
+    background-color: var(--dark);
+    color: white;
+  }
+  button, #headerNav button, .control, .day:not(.padding), .weekdayLabel, .sidebar, .loginScreen, .userManual {
+    box-shadow: 0px 0px 3px darkgray;
+  }
+  button:hover, #headerNav button:hover, .day:hover:not(.padding), .day + #currentDay:hover, .notification:hover {
+      box-shadow: 0px 0px 5px white;
+  }
+  .day + #currentDay {
+    box-shadow: 0px 0px 10px white;
+  }
+  #headerNav button:hover, .control:hover, .dropdownMenu a:hover, .backupRow:hover, .day:hover:not(.padding), .day + #currentDay:hover, .manualA:hover, .vendorNameTitle:hover {
+    background-color: var(--dark-hover);
+  }
+  #headerNav button:active, .control:active, .dropdownMenu a:active, .backupRow:active, .day:active:not(.padding), .manualA:active, .vendorNameTitle:active {
+    background-color: var(--dark-press);
+  }
+  .selectedView, .selectedToday, .selectedView:hover, .selectedToday:hover, .blueButton {
+    background-color: var(--button-blue-dark);
+  }
+  .selectedView:active, .selectedToday:active, .blueButton:active {
+    background-color: var(--button-blue-press);
+  }
+  .event, .selectedViewTypeEvents, .selectedViewTypeEvents:hover {
+    background-color: var(--event-blue-dark);
+  }
+  .dueDate, .selectedViewTypeDueDates, .selectedViewTypeDueDates:hover {
+    background-color: var(--due-date-red-dark);
+  }
+  .selectedViewTypeEvents:active {
+    background-color: var(--event-blue-press);
+  }
+  .selectedViewTypeDueDates:active, .notification:active {
+    background-color: var(--due-date-red-press);
+  }
+  .event::after {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--event-blue-dark));
+  }
+  .dueDate::after {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--due-date-red-dark));
+  }
+  .sidebar input::placeholder {
+    color: white;
+    opacity: 0.5;
+  }
+  input.error {
+    border: 2px solid var(--button-red-dark);
+  }
+  .redButton {
+    background-color: var(--button-red-dark);
+  }
+  body, #monthDisplay, input:not([type = checkbox]), .sidebar select {
+    background-color: black;
+    color: white;
+  }
+  input[type = checkbox] {
+    -webkit-filter: invert();
+    filter: invert();
+  }
+  /* Firefox */
+  * {
+    scrollbar-color: var(--gray) black;
+  }
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar-track {
+    background: black;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--dark);
+    border: 2px solid black;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--dark-hover);
+  }
+  *::-webkit-scrollbar-thumb:active {
+    background: var(--dark-press);
+  }
+}
+
+/* Hide buttons, adjust backgrounds, etc. when printing */
+@media print {
+  /* Disable animations and transitions */
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+  /* Force background colors to show up */
+  body {
+    background-color: white !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+  /* Hide or remove elements that shouldn't appear on printed page, like buttons */
+  .printHide {
+    visibility: hidden !important;
+  }
+  .printRemove {
+    display: none !important;
+  }
+  /* Remove special style from today and day being hovered over */
+  .day:hover, .day + #currentDay, .day:active, .day + #currentDay:hover, .padding {
+    background-color: white !important;
+    box-shadow: 0px 0px 3px lightgray !important;
+    font-weight: normal !important;
+    font-size: 1em !important;
+    padding: 0.7% !important;
+  }
+  /* Remove special style for padding */
+  .padding, .padding:hover {
+    background-color: white !important;
+    box-shadow: none !important;
+  }
+  /* Adjust sidebar for printing */
+  #notifModal, #newEventModal, #viewEventModal {
+    min-width: 100% !important;
+  }
+  #viewEventModal {
+    display: block !important;
+  }
+  input {
+    box-shadow: none !important;
+  }
+  input[type = checkbox] {
+    visibility: hidden !important;
+  }
+}
