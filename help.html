@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- 180×180 -->
+  <meta name="theme-color" content="#c1f4f5">
+  <title>User Manual | Southern Charm Events Calendar</title>
+  <!-- FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =====================
+ LOGIN SCREEN
+ =======================-->
+  <div class="manualContainer">
+    <div class="userManual">
+      <img id="sceLogoLogin" src="images/sceLogo.webp" height="75" alt="Southern Charm Events logo">
+      <div class="centeredButtons">
+        <h1>Southern Charm Events Calendar (SCEC) User Manual</h1>
+        <noscript>Please enable JavaScript to use Southern Charm Events Calendar.</noscript>
+        <a class="manualA"href="calendar.html"><button class="backButton blueButton">Back to Calendar</button></a>
+      </div>
+      <br>
+
+      <div id="contents">
+        <h3>Table of Contents</h3>
+        <ol class="manualOl">
+          <li class="manualLi"><a class="manualA"href="#intro">Introduction to Southern Charm Events Calendar</a></li>
+          <li class="manualLi"><a class="manualA"href="#login">Login</a>
+            <ol class="manualOl">
+              <li class="manualLi"><a class="manualA"href="#resetPassword">Reset Password</a></li>
+            </ol>
+          </li>
+          <li class="manualLi"><a class="manualA"href="#homepage">Homepage</a>
+            <ol class="manualOl">
+              <li class="manualLi"><a class="manualA"href="#weekly">Weekly View</a></li>
+              <li class="manualLi"><a class="manualA"href="#monthly">Monthly View</a></li>
+              <li class="manualLi"><a class="manualA"href="#yearly">Yearly View</a></li>
+            </ol>
+          </li>
+          <li class="manualLi"><a class="manualA"href="#createEditDelete">Create, Edit, and Delete Events</a>
+            <ol class="manualOl">
+              <li class="manualLi"><a class="manualA"href="#create">Create New Events</a></li>
+              <li class="manualLi"><a class="manualA"href="#edit">Editing Events</a></li>
+              <li class="manualLi"><a class="manualA"href="#delete">Deleting Events</a></li>
+            </ol>
+          </li>
+          <li class="manualLi"><a class="manualA"href="#notifsDueDates">Notifications and Due Dates</a>
+            <ol class="manualOl">
+              <li class="manualLi"><a class="manualA"href="#notifs">Notifications</a></li>
+              <li class="manualLi"><a class="manualA"href="#dueDates">Due Dates</a></li>
+            </ol>
+          </li>
+          <li class="manualLi"><a class="manualA"href="#misc">Miscellaneous</a>
+            <ol class="manualOl">
+              <li class="manualLi"><a class="manualA"href="#backupRestore">Backup/Restore</a></li>
+              <li class="manualLi"><a class="manualA"href="#printing">Printing</a></li>
+              <li class="manualLi"><a class="manualA"href="#logout">Logout</a></li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+      <div class="manualBody">
+        <ol class="manualOl">
+          <li class="manualLi">
+            <h3 id="intro">Introduction to Southern Charm Events Calendar</h3>
+            <p>Welcome to the Southern Charm Events Calendar, or SCEC. This system allows you to
+              <a class="manualA"href="#create">schedule events</a>, <a class="manualA"href="#edit">save event information</a> such as the amount
+              due and vendor contacts, <a class="manualA"href="#printing">print</a> out the calendar and events, and receive
+              <a class="manualA"href="#notifs">notification</a> reminders for <a class="manualA"href="#dueDates">due dates</a>. This document will
+              guide you through the various different features and tools available to schedule events.</p>
+          </li>
+          <li class="manualLi">
+            <h3 id="login">Login</h3>
+            <p>When accessing SCEC, you will first be taken to the Login Page. Here you will input your SCEC email and
+              password. The password will be provided by the development team.</p>
+            <img src="/images/userManual/lowres/login.webp" data-src="/images/userManual/login.webp" alt="Login screen"
+              class="manualImageDesktop asyncImage" loading="lazy">
+            <p>An email and password must be entered at the Login page. Error messages are displayed when text is not
+              entered. An error message is also displayed for invalid logins.</p>
+            <ol class="manualOl">
+              <li class="manualLi">
+                <h4 id="resetPassword">Reset Password</h4>
+                <p>If you forget the password to your account, you can reset it by clicking Reset Password on the
+                  <a class="manualA"href="#login">Login Page</a>. You will be taken to the Reset Password page where you enter the
+                  email address associated with the account. An email will be sent to the corresponding email address
+                  with instructions.</p>
+                <img src="/images/userManual/lowres/resetPassword.webp" data-src="/images/userManual/resetPassword.webp"
+                  alt="Reset Password screen" class="manualImageDesktop asyncImage" loading="lazy">
+              </li>
+            </ol>
+          </li>
+          <li class="manualLi">
+            <ol class="manualOl">
+              <h3 id="homepage">Homepage</h3>
+              <p>After <a class="manualA"href="#login">logging into SCEC</a> using your credentials, you will be taken to the SCEC
+                homepage, which will show a calendar of the current <a class="manualA"href="#weekly">week</a>,
+                <a class="manualA"href="#monthly">month</a>, or <a class="manualA"href="#yearly">year</a>. There are several options on homepage.</p>
+              <p>Use the left and right arrows to navigate between the weeks, months, or years. The Today button will
+                take you back to the current week, month, or year.</p>
+              <li class="manualLi">
+                <h4 id="weekly">Weekly View</h4>
+                <p>The Weekly button will display the current week along with events scheduled and
+                  <a class="manualA"href="#dueDates">due dates</a>.</p>
+                <img src="/images/userManual/lowres/weekly.webp" data-src="/images/userManual/weekly.webp"
+                  alt="Weekly view" class="manualImageDesktop asyncImage" loading="lazy">
+              </li>
+              <li class="manualLi">
+                <h4 id="monthly">Monthly View</h4>
+                <p>The Monthly button will display the current month. Click the Events button to show all events
+                  scheduled for that month. Click the <a class="manualA"href="#dueDates">Due Dates</a> button to show all due dates for
+                  that month.</p>
+                <img src="/images/userManual/lowres/monthlyEvents.webp" data-src="/images/userManual/monthlyEvents.webp"
+                  alt="Monthly view set to Events" class="manualImageDesktop asyncImage" loading="lazy">
+              </li>
+              <li class="manualLi">
+                <h4 id="yearly">Yearly View</h4>
+                <p>The Yearly button will show a yearly calendar with the number of events scheduled for each month.
+                  Click on a month to view that month in the <a class="manualA"href="#monthly">Monthly view</a>.</p>
+                <img src="/images/userManual/lowres/yearly.webp" data-src="/images/userManual/yearly.webp"
+                  alt="Yearly view" class="manualImageDesktop asyncImage" loading="lazy">
+              </li>
+            </ol>
+          </li>
+          <li class="manualLi">
+            <h3 id="createEditDelete">Create, Edit, and Delete Events</h3>
+            <p>In this example, we will walk through the <a class="manualA"href="#create">create</a>, <a class="manualA"href="#edit">edit</a>, and
+              <a class="manualA"href="#delete">delete</a> pages of SCEC.</p>
+            <ol class="manualOl">
+              <li class="manualLi">
+                <h4 id="create">Create New Events</h4>
+                <p>To schedule a new event, navigate to the date where the event will take place in either the
+                  <a class="manualA"href="#weekly">Weekly</a> or <a class="manualA"href="#monthly">Monthly view</a> and click on the date.</p>
+                <p>On the right a new sidebar will temporarily replace the <a class="manualA"href="#notifs">notifications</a>, letting
+                  you enter the event name, date, time, type of event, client name, vendor information (name, type,
+                  contact), and the total charge.</p>
+                <img src="/images/userManual/lowres/addEvent.webp" data-src="/images/userManual/addEvent.webp"
+                  alt="Add Event screen" class="manualImageDesktop asyncImage" loading="lazy">
+                <p>After entering all information, click Save to save it to the calendar. Click Cancel if you do not
+                  want it to be saved to the calendar.</p>
+              </li>
+              <li class="manualLi">
+                <h4 id="edit">Editing Events</h4>
+                <p>To view or edit an event, click on the event on either the <a class="manualA"href="#weekly">Weekly</a>
+                  or <a class="manualA"href="#monthly">Monthly view</a>. On the right, the event details will display. Click on any of
+                  the textboxes and edit the text, then click the Edit button to save the changes.</p>
+                <img src="/images/userManual/lowres/editEvent.webp" data-src="/images/userManual/editEvent.webp"
+                  alt="Event Details screen" class="manualImageDesktop asyncImage" loading="lazy">
+              </li>
+              <li class="manualLi">
+                <h4 id="delete">Deleting Events</h4>
+                <p>To delete an event, click on the event on either the <a class="manualA"href="#weekly">Weekly</a>
+                  or <a class="manualA"href="#monthly">Monthly view</a>. On the right, the event
+                  details will display. Click the Delete button on the bottom right, then click the OK button on the
+                  prompt to delete the event. This action cannot be undone.</p>
+              </li>
+            </ol>
+          </li>
+          <li class="manualLi">
+            <h3 id="notifsDueDates">Notifications and Due Dates</h3>
+            <ol class="manualOl">
+              <li class="manualLi">
+                <h4 id="notifs">Notifications</h4>
+                <p>By default, the right sidebar will display upcoming due dates for events in the calendar. The
+                  software will output a notification reminder for remaining balance due, damage deposit, and police
+                  officer fee 60 days prior to the event. It will output a notification reminder for the vendors'
+                  agreement and vendors' insurance 30 days prior to the event. It will output a notification reminder
+                  for the floor plan and timeline 14 days prior to the event. Once a task has been marked as complete on
+                  the Event Details screen, its notification will be dismissed.</p>
+                <p>The software will output a notification on the 15th of every month to remind the user to email the
+                  police office and the cleaning staff. Clicking on one of these notifications will dismiss it until the
+                  next month. All notifications for an event, whether marked as complete or not, will disappear from the
+                  sidebar after the event date has passed.</p>
+              </li>
+              <li class="manualLi">
+                <h4 id="dueDates">Due Dates</h4>
+                <p>Clicking the Due Dates button on the <a class="manualA"href="#monthly">Monthly View</a> will display the upcoming
+                  due dates for events. The Due Dates on the <a class="manualA"href="#weekly">Weekly View</a> show more details,
+                  including counts for every type of task that is due.</p>
+                <img src="/images/userManual/lowres/monthlyDueDates.webp"
+                  data-src="/images/userManual/monthlyDueDates.webp" alt="Monthly view set to Due Dates"
+                  class="manualImageDesktop asyncImage" loading="lazy">
+              </li>
+            </ol>
+          </li>
+          <li class="manualLi">
+            <h3 id="misc">Miscellaneous</h3>
+            <ol class="manualOl">
+              <li class="manualLi">
+                <h4 id="backupRestore">Backup/Restore</h4>
+                <p>Click the More… button near the upper right corner of the calendar, then click Backup to create a
+                  backup of all events. To restore a backup, click the Restore… button, then select a backup to restore.</p>
+                  <img src="/images/userManual/lowres/more.webp" data-src="/images/userManual/more.webp" alt="Dropdown menu shown when clicking More... button"
+                  class="manualImageDesktop asyncImage" loading="lazy">
+                  <p>Up to 20 backups can be stored at one time, with the oldest ones being deleted first. To avoid losing
+                    events that were created after the backup that is being restored, it is recommended to only restore
+                    backups in the case of significant data loss. Note that older events can still be viewed in the
+                    calendar without using the backup feature.</p>
+                    <img src="/images/userManual/lowres/restoreBackup.webp" data-src="/images/userManual/restoreBackup.webp" alt="Restore Backup screen"
+                  class="manualImageDesktop asyncImage" loading="lazy">
+              </li>
+              <li class="manualLi">
+                <h4 id="printing">Printing</h4>
+                <p>Navigate to the view you would like to print (<a class="manualA"href="#weekly">Weekly</a>,
+                  <a class="manualA"href="#monthly">Monthly</a>, or <a class="manualA"href="#yearly">Yearly</a>). Click the More… button near the
+                  upper right corner of the calendar, then click the Print button to bring up printing options.</p>
+                <p>To print out specific event details, navigate to the event on the calendar and click on it. Click on
+                  the print button on the bottom of the Event Details pane to bring up printing options.</p>
+                <img src="/images/userManual/lowres/editEvent.webp" data-src="/images/userManual/editEvent.webp"
+                  alt="Event Details screen" class="manualImageDesktop asyncImage" loading="lazy">
+              </li>
+              <li class="manualLi">
+                <h4 id="logout">Logout</h4>
+                <p>When you are finished using SCEC, use the Log Out button to sign out of the system. You will be
+                  directed back to the Login page.</p>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+      <div class="centeredButtons"> <a class="manualA"href="calendar.html">
+        <button class="backButton blueButton">Back to Calendar</button></a>
+      </div>
+    </div>
+  </div> <!-- JAVASCRIPT -->
+  <script src="help.js"></script>
+  <script>
+    // Load full-resolution images asynchronously
+    const objects = document.getElementsByClassName('asyncImage');
+    Array.from(objects).map((item) => {
+      // Start loading image
+      const img = new Image();
+      img.src = item.dataset.src;
+      // Once image is loaded, replace the src of the HTML element
+      img.onload = () => {
+        item.classList.remove('asyncImage');
+        return item.nodeName === 'IMG' ?
+          item.src = item.dataset.src :
+          item.style.backgroundImage = `url(${item.dataset.src})`;
+      };
+    });
+  </script>
+</body>
+
+</html>
